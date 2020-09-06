@@ -1,0 +1,2 @@
+export const ADD_IMAGES="ADD_IMAGES"
+export const CLEAR_IMAGES="CLEAR_IMAGES"
