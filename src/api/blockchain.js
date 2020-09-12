@@ -1,9 +1,12 @@
+import {useContext} from 'react';
 import HDWalletProvider  from "@truffle/hdwallet-provider"
 import Web3 from "web3"
 const mnemonic="hurry trial cable release athlete cruel cruise frog innocent hobby equal cluster"
 let provider = new HDWalletProvider(mnemonic,`https://rpc-mumbai.matic.today/`);
+import AsyncStorage from '@react-native-community/async-storage';
 export const web3 = new Web3(provider)
 const contractAddress="0x8b8f78bfFDc26c78a502b8b05A41ce1D2f02F46b"
+
 const contractAbi=`[
 	{
 		"inputs": [
