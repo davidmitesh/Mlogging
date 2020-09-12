@@ -1,4 +1,4 @@
-import React,{useContext,useCallback, useState} from 'react'
+import React,{useContext,useCallback, useState, useEffect} from 'react'
 import { StyleSheet,Button,FlatList,TouchableOpacity ,ScrollView,View} from 'react-native'
 import {Context as TrackContext} from '../context/TrackContext'
 import {Context as LocationContext} from '../context/LocationContext'
@@ -8,6 +8,8 @@ import {TextInput} from 'react-native-paper'
 import { Ionicons,MaterialCommunityIcons,Fontisto } from '@expo/vector-icons';
 import TrackCreate from '../components/CreateTrack'
 import _ from 'lodash'
+import { web3 } from '../api/blockchain'
+
 const TrackListScreen = ({navigation}) => {
     const {state:{allTracks,myTracks},fetchTracks}=useContext(TrackContext)
     const {changeName}=useContext(LocationContext)

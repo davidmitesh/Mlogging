@@ -2,6 +2,7 @@ import createDataContext from './createDataContext'
 import trackerApi from '../api/track'
 import { FETCH_TRACKS,FETCH_MY_TRACKS } from './TrackContextTypes'
 import _ from 'lodash';
+import { myContractInstance, web3 } from '../api/blockchain';
 
 const trackReducer=(state,action)=>{
     switch(action.type){
@@ -16,6 +17,7 @@ const trackReducer=(state,action)=>{
 
 const fetchTracks=dispatch=>async()=>{
     const response=await trackerApi.get('/tracks')
+    console.log(response)
     dispatch({type:FETCH_TRACKS,payload:response.data})
 }
 
@@ -71,7 +73,33 @@ const fetchMyTracks=dispatch=>async()=>{
 
 const createTrack=dispatch=>async(name)=>{
     console.log(name)
-    return await trackerApi.post('/tracks',{name})
+    let accounts=await web3.eth.getAccounts()
+    console.log(accounts)   
+    let response=await myContractInstance.methods.addTrack(20,name).send({from :accounts[0]})
+    console.log(response)
+    return  await trackerApi.post('/tracks',{name})
+    
+
+}
+
+const buyAdvertisement=dispatch=>async(name)=>{
+    let accounts=await web3.eth.getAccounts()
+    let response=await myContractInstance.methods.buyAdvertisement(name).send({from:accounts[0]})
+    console.log(response)
+    return response
+}
+
+const advertise=dispatch=>async(name)=>{
+    let accounts=await web3.eth.getAccounts()
+    try{
+        let response=await myContractInstance.methods.redeemAdvertise(name).send({from:accounts[0]})
+        console.log(response)
+        if (response){
+           return await trackerApi.post('/putAdvertisement',{name})
+        }
+    }catch(err){
+        alert('sorry,you cannot place advertisement!')
+    }
 }
 
 const addLocations=dispatch=>async(name,locations)=>{
@@ -108,6 +136,6 @@ const addSavedLocation=dispatch=>async(trackName,locationName,desc,markerLocatio
 
 export const {Provider,Context} =createDataContext(
     trackReducer,
-    {fetchTracks,createTrack,addLocations,addSavedLocation,fetchMyTracks},
+    {fetchTracks,createTrack,addLocations,addSavedLocation,fetchMyTracks,buyAdvertisement,advertise},
     {allTracks:[],myTracks:[]}
 )

@@ -1,4 +1,4 @@
-
+import './global'
 import 'react-native-gesture-handler';
 
 import React,{useContext,useEffect,useState} from 'react';//This is to support writing of JSX
@@ -88,7 +88,7 @@ const TrackListFlowScreen=()=>(
     // component={TrackCreateFlowScreen}
     component={ExploreScreen}
     options={{
-      title:"Create"
+      title:"Tracks"
       
     }}
     />

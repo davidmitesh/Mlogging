@@ -1,4 +1,4 @@
-import React, { useEffect,useContext } from 'react';
+import React, { useEffect,useContext ,useLayoutEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,12 +15,13 @@ import {
 import MapView, { Marker ,Polyline} from "react-native-maps";
 import {Context as TrackContext} from '../context/TrackContext'
 
-import { Ionicons,MaterialCommunityIcons,Fontisto,FontAwesome5 } from '@expo/vector-icons';
+import { Ionicons,MaterialCommunityIcons,Fontisto,FontAwesome5 ,MaterialIcons} from '@expo/vector-icons';
 
 import {  mapDarkStyle, mapStandardStyle } from '../model/mapData';
 import RoamSpot from '../components/RoamSpot';
 import ChipsRun from '../components/ChipsRun';
 import _ from 'lodash'
+import { MaterialBottomTabView } from '@react-navigation/material-bottom-tabs';
 // import StarRating from '../components/StarRating';
 
 // import { useTheme } from '@react-navigation/native';
@@ -37,7 +38,7 @@ const ExploreScreen = ({navigation,route}) => {
 
 
 const id=route.params._id
-const {state:{allTracks}}=useContext(TrackContext)
+const {state:{allTracks},buyAdvertisement,advertise}=useContext(TrackContext)
 const track=allTracks.find(queryTrack => queryTrack._id === id)
 if (track.locations.length===0 ){
   return (
@@ -59,6 +60,21 @@ const markers= _.map(track.savedLocations,function(location){
     image:`https://ipfs.io/ipfs/${location.images[0]}`
   }
 })
+
+if (track.showAdvertisement){
+  let location={
+    ...initialCoords,
+    longitude: initialCoords.longitude+0.000758,
+    latitude:initialCoords.latitude+0.000935
+  }
+  markers.push({
+      coordinate:location ,
+      title:"!Advertisement!",
+      description:"Demo for advertisement",
+      image:`https://ipfs.io/ipfs/QmR3mELjQZZweeHf5XCWKcA12apvg8pEZSu5FvhMcVzVLu`
+    
+  })
+}
 
   const initialMapState = {
     markers,
@@ -120,6 +136,21 @@ const markers= _.map(track.savedLocations,function(location){
     })
 
   })
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+        headerRight: props=><TouchableOpacity onPress={async ()=>{
+          await buyAdvertisement(track.name)
+          await advertise(track.name)
+          alert('you successfully placed the advertisement!')  
+        }}>
+          <Text style={{fontSize:25,color:'blue',marginRight:5}}>Buy Ads</Text>
+                {/* <MaterialIcons {...props} name="business" size={40} color="black" style={{paddingRight:10}} /> */}
+        </TouchableOpacity>
+        
+    });
+    // <Ionicons {...props} name="ios-add-circle-outline" size={60} color="black" style={{paddingRight:10}} />
+    }, []);
 
   const interpolations = MapState.markers.map((marker, index) => {
     const inputRange = [
@@ -185,7 +216,7 @@ const markers= _.map(track.savedLocations,function(location){
 
       
 
-      <ChipsRun/>
+      {/* <ChipsRun/> */}
 
       <Animated.ScrollView 
         ref={_scrollView}
