@@ -1,10 +1,11 @@
-import {useContext} from 'react';
+import React,{useContext} from 'react';
 import HDWalletProvider  from "@truffle/hdwallet-provider"
 import Web3 from "web3"
-const mnemonic="hurry trial cable release athlete cruel cruise frog innocent hobby equal cluster"
-let provider = new HDWalletProvider(mnemonic,`https://rpc-mumbai.matic.today/`);
+
+// const mnemonic="hurry trial cable release athlete cruel cruise frog innocent hobby equal cluster"
+// let provider = new HDWalletProvider(mnemonic,`https://rpc-mumbai.matic.today/`);
 import AsyncStorage from '@react-native-community/async-storage';
-export const web3 = new Web3(provider)
+// export const web3 = new Web3(provider)
 const contractAddress="0x8b8f78bfFDc26c78a502b8b05A41ce1D2f02F46b"
 
 const contractAbi=`[
@@ -101,4 +102,15 @@ const contractAbi=`[
 		"type": "function"
 	}
 ]`
-export const myContractInstance = new web3.eth.Contract(JSON.parse(contractAbi), contractAddress)
+
+export default async()=>{
+    const mnemonic=await AsyncStorage.getItem('mnemonic')
+    let provider = new HDWalletProvider(mnemonic,`https://rpc-mumbai.matic.today/`);
+    const web3 = new Web3(provider)
+    const myContractInstance = new web3.eth.Contract(JSON.parse(contractAbi), contractAddress)
+    return {
+        web3,
+        myContractInstance
+    }
+}
+// export const myContractInstance = new web3.eth.Contract(JSON.parse(contractAbi), contractAddress)
