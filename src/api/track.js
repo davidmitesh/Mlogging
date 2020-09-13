@@ -3,7 +3,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const instance= axios.create({
     // baseURL:'https://afternoon-scrubland-81557.herokuapp.com'
-    baseURL:"http://192.168.1.102:8000"
+    // baseURL:"http://192.168.1.102:8000"
+    baseURL:'https://mysterious-mountain-89545.herokuapp.com'
 })
 instance.interceptors.request.use(//run this before any time any request is made
     async (config)=>{
