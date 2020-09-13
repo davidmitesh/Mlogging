@@ -22,3 +22,11 @@ bring the platform to mobile environment.
 * Matic Network is used for public blockchain network making the transactions very fast giving users the smooth experience like of normal apps.
 * For now MongoDB and IPFS collectively serves as for backend for Dapp while account information is maintained in blockchain making the Dapp pseudo-decentralized.
 However, [AvionDB](https://github.com/dappkit/aviondb) will be used later to make the Dapp fully decentralized.
+
+## Things you can do on DApp
+
+* Create a track and record the route
+* Add locations with the illusive markers in the recorded track
+* Make the location more informative with images,videos and description
+* Advertisers can put their ads directly on the tracks by paying directly to the content creator
+* Instant transfer of payment to creator account using smart contract
