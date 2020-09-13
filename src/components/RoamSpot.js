@@ -74,11 +74,12 @@ const RoamSpot = ({isModal,change,markerLocation}) => {
            ref={_scrollView}>
           {
               images.map((image,index)=>{
+                console.log(image)
                 return (
             <Image
                   
                   key={index}
-              source={{ uri:image.uri }}
+              source={{ uri:image }}
               style={{ width: 200, height: 200 ,borderWidth:5,borderColor:'white',borderRadius:20}}
               PlaceholderContent={<ActivityIndicator />}
             />

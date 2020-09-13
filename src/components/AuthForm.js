@@ -8,7 +8,7 @@ const AuthForm = ({headerText,errorMessage,onSubmit,buttonTitle}) => {
     const [password,setPassword]=useState('')
     //below we have put down fragment tag which requires no styling
     return (
-        <View style={{flex:1}}>
+        <View >
              <Spacer>
             <Text h3>{headerText}</Text>
             </Spacer>            

@@ -278,7 +278,7 @@ if (track.showAdvertisement){
                   <Text style={[styles.textSign, {//This syntax is used to add other styling options
                   //along with that mentioned in the stylesheet down!
                     color: '#FF6347'
-                  }]}>Order Now</Text>
+                  }]}>View Detail</Text>
                 </TouchableOpacity>
 
               </View>

@@ -2,7 +2,7 @@ import createDataContext from './createDataContext'
 import trackerApi from '../api/track'
 import { FETCH_TRACKS,FETCH_MY_TRACKS } from './TrackContextTypes'
 import _ from 'lodash';
-import { myContractInstance, web3 } from '../api/blockchain';
+import maticDetails from '../api/blockchain';
 
 const trackReducer=(state,action)=>{
     switch(action.type){
@@ -73,6 +73,7 @@ const fetchMyTracks=dispatch=>async()=>{
 
 const createTrack=dispatch=>async(name)=>{
     console.log(name)
+    let {web3,myContractInstance}=await maticDetails()
     let accounts=await web3.eth.getAccounts()
     console.log(accounts)   
     let response=await myContractInstance.methods.addTrack(20,name).send({from :accounts[0]})
@@ -83,13 +84,15 @@ const createTrack=dispatch=>async(name)=>{
 }
 
 const buyAdvertisement=dispatch=>async(name)=>{
+    let {web3,myContractInstance}=await maticDetails()
     let accounts=await web3.eth.getAccounts()
-    let response=await myContractInstance.methods.buyAdvertisement(name).send({from:accounts[0]})
+    let response=await myContractInstance.methods.buyAdvertisement(name).send({from:accounts[0],value:'2000000000'})
     console.log(response)
     return response
 }
 
 const advertise=dispatch=>async(name)=>{
+    let {web3,myContractInstance}=await maticDetails()
     let accounts=await web3.eth.getAccounts()
     try{
         let response=await myContractInstance.methods.redeemAdvertise(name).send({from:accounts[0]})
