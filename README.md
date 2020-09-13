@@ -17,6 +17,7 @@ In this manner, the vlog creator gets fully credited for his work and viewers ca
 
 * As opposed to most of the Dapps targetted for web(browser specific), this Dapp is targeted for mobile device as to make blockchain Dapps widely adopted, it is very crucial to
 bring the platform to mobile environment.
+* React Native is used for making cross platform mobile Dapp.
 * Mini wallet like feature is implemented inside the Dapp which is built using Truffle-HDwallet provider.
 * Matic Network is used for public blockchain network making the transactions very fast giving users the smooth experience like of normal apps.
 * For now MongoDB and IPFS collectively serves as for backend for Dapp while account information is maintained in blockchain making the Dapp pseudo-decentralized.
